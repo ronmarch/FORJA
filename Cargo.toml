@@ -1,0 +1,44 @@
+[package]
+name = "forja"
+version = "1.0.0"
+edition = "2021"
+description = "FORJA v1.0 - Sistema de Inteligencia de Mercado Crypto"
+authors = ["FORJA Team"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = { version = "0.24", features = ["native-tls"] }
+futures-util = "0.3"
+url = "2"
+reqwest = { version = "0.12", features = ["json"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "chrono"] }
+axum = "0.7"
+tower-http = { version = "0.5", features = ["cors"] }
+parquet = "53"
+arrow = { version = "53", features = ["prettyprint"] }
+toml = "0.8"
+
+# M10: Análisis Parquet con Polars Lazy (sin DuckDB)
+polars = { version = "0.46", features = [
+    "lazy",
+    "parquet",
+    "csv",
+    "dtype-full",
+    "streaming",
+    "round_series",
+    "temporal",
+] }
+futures = "0.3.32"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.dev]
+opt-level = 1
